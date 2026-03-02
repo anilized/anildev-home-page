@@ -83,8 +83,6 @@ const socialGroupOrder: SocialGroup[] = [
   "SOSYAL MEDYA",
 ];
 
-const creatorLogoPath = "/streamer-logo.png";
-
 function getHandle(url: string): string {
   try {
     const parsed = new URL(url);
@@ -205,14 +203,7 @@ function App() {
       <div className="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-5xl items-center justify-center">
         <section className="glass-panel w-full rounded-3xl p-6 sm:p-10">
           <header className="enter-up">
-            <div className="h-20 w-20 overflow-hidden rounded-2xl border border-emerald-300/35 bg-black/60 shadow-[0_0_30px_rgba(34,197,94,0.35)]">
-              <img
-                src={creatorLogoPath}
-                alt={`${siteConfig.creatorName} logo`}
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <p className="mt-5 text-xs uppercase tracking-[0.4em] text-emerald-300/85">
+            <p className="text-xs uppercase tracking-[0.4em] text-emerald-300/85">
               Sosyal Medya Linkleri
             </p>
             <h1 className="title-font neon-text mt-2 text-5xl leading-none text-emerald-200 sm:text-7xl">
