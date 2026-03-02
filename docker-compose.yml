@@ -1,0 +1,12 @@
+services:
+  links-page:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_BASE_PATH: /links/
+    image: anildev-links:latest
+    container_name: anildev-links
+    restart: unless-stopped
+    ports:
+      - "8080:80"

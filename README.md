@@ -64,6 +64,32 @@ Notlar:
 docker build -t anildev-links --build-arg APP_BASE_PATH=/my-path/ .
 ```
 
+## Docker Compose
+
+`docker-compose.yml` dosyasi varsayilan olarak:
+
+- app'i build eder
+- build sırasında `APP_BASE_PATH=/links/` kullanir
+- container'i `8080` portunda yayinlar
+
+Calistirma:
+
+```bash
+docker compose up -d --build
+```
+
+Durdurma:
+
+```bash
+docker compose down
+```
+
+Test:
+
+```bash
+curl http://localhost:8080/links/
+```
+
 ## Ozellestirme
 
 ### 1. Sosyal linkler ve kanal bilgisi
