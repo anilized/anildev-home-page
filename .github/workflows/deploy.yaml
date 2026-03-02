@@ -19,7 +19,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             # Navigate to the project folder
-            cd ~/anildev-homepage
+            cd /root/dev/anildev-home-page
             
             # Pull the latest code from GitHub
             git pull origin main
