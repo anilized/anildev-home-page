@@ -41,8 +41,8 @@ const socialCards: SocialCard[] = [
     group: "SOSYAL MEDYA",
     href: siteConfig.links.tiktok,
     iconSrc: "https://cdn.simpleicons.org/tiktok/ffffff",
-    gradientClass: "from-fuchsia-500/20 to-rose-500/20",
-    ringClass: "hover:ring-fuchsia-300/40",
+    gradientClass: "from-emerald-400/20 to-lime-400/20",
+    ringClass: "hover:ring-emerald-300/45",
     handle: getHandle(siteConfig.links.tiktok),
   },
   {
@@ -51,8 +51,8 @@ const socialCards: SocialCard[] = [
     group: "YAYIN KESITLERI",
     href: siteConfig.links.youtube,
     iconSrc: "https://cdn.simpleicons.org/youtube/ff0000",
-    gradientClass: "from-red-500/20 to-orange-500/20",
-    ringClass: "hover:ring-red-300/40",
+    gradientClass: "from-emerald-400/20 to-lime-400/20",
+    ringClass: "hover:ring-emerald-300/45",
     handle: getHandle(siteConfig.links.youtube),
   },
   {
@@ -61,8 +61,8 @@ const socialCards: SocialCard[] = [
     group: "SOSYAL MEDYA",
     href: siteConfig.links.instagram,
     iconSrc: "https://cdn.simpleicons.org/instagram/ffffff",
-    gradientClass: "from-pink-500/20 to-violet-500/20",
-    ringClass: "hover:ring-pink-300/40",
+    gradientClass: "from-emerald-400/20 to-lime-400/20",
+    ringClass: "hover:ring-emerald-300/45",
     handle: getHandle(siteConfig.links.instagram),
   },
   {
@@ -71,8 +71,8 @@ const socialCards: SocialCard[] = [
     group: "CANLI YAYINLAR",
     href: siteConfig.links.kick,
     iconSrc: "https://cdn.simpleicons.org/kick/53fc18",
-    gradientClass: "from-lime-500/20 to-emerald-500/20",
-    ringClass: "hover:ring-lime-300/40",
+    gradientClass: "from-emerald-400/20 to-lime-400/20",
+    ringClass: "hover:ring-emerald-300/45",
     handle: getHandle(siteConfig.links.kick),
   },
 ];
@@ -199,25 +199,26 @@ function App() {
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden px-4 py-10 sm:px-8">
-      <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-cyan-400/25 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 rounded-full bg-orange-400/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-emerald-400/25 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 rounded-full bg-lime-400/20 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 opacity-20 [background:repeating-linear-gradient(0deg,rgba(74,222,128,0.12)_0px,rgba(74,222,128,0.12)_1px,transparent_1px,transparent_3px)]" />
       <div className="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-5xl items-center justify-center">
         <section className="glass-panel w-full rounded-3xl p-6 sm:p-10">
           <header className="enter-up">
-            <div className="h-20 w-20 overflow-hidden rounded-2xl border border-white/20 bg-slate-900/70 shadow-[0_10px_45px_rgba(249,115,22,0.35)]">
+            <div className="h-20 w-20 overflow-hidden rounded-2xl border border-emerald-300/35 bg-black/60 shadow-[0_0_30px_rgba(34,197,94,0.35)]">
               <img
                 src={creatorLogoPath}
                 alt={`${siteConfig.creatorName} logo`}
                 className="h-full w-full object-cover"
               />
             </div>
-            <p className="mt-5 text-xs uppercase tracking-[0.4em] text-cyan-200/80">
+            <p className="mt-5 text-xs uppercase tracking-[0.4em] text-emerald-300/85">
               Sosyal Medya Linkleri
             </p>
-            <h1 className="title-font mt-2 text-5xl leading-none text-white sm:text-7xl">
+            <h1 className="title-font neon-text mt-2 text-5xl leading-none text-emerald-200 sm:text-7xl">
               {siteConfig.creatorName}
             </h1>
-            <p className="mt-4 max-w-2xl text-base text-slate-100/85 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-base text-emerald-50/85 sm:text-lg">
               {siteConfig.tagline}
             </p>
           </header>
@@ -229,7 +230,7 @@ function App() {
 
               return (
                 <div key={group} className={`enter-up delay-${Math.min(index + 1, 5)}`}>
-                  <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200/85">
+                  <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300/90">
                     {group}
                   </h2>
                   <div className="flex flex-col gap-3">
@@ -239,14 +240,14 @@ function App() {
                         href={card.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03] p-4 transition duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/[0.06] hover:shadow-[0_14px_30px_rgba(15,23,42,0.55)]"
+                        className="group relative overflow-hidden rounded-2xl border border-emerald-300/20 bg-emerald-200/[0.03] p-4 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-emerald-100/[0.06] hover:shadow-[0_14px_30px_rgba(5,46,22,0.65)]"
                       >
                         <div
                           className={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-0 transition duration-300 group-hover:opacity-100 ${card.gradientClass}`}
                         />
                         <div className="relative flex items-center gap-3">
                           <span
-                            className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-slate-900/70 text-xs font-bold tracking-wider text-white ring-2 ring-transparent transition ${card.ringClass}`}
+                            className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-300/25 bg-black/70 text-xs font-bold tracking-wider text-white ring-2 ring-transparent transition ${card.ringClass}`}
                           >
                             <img
                               src={card.iconSrc}
@@ -257,7 +258,7 @@ function App() {
                           </span>
                           <div>
                             <p className="text-base font-semibold text-white">{card.label}</p>
-                            <p className="text-sm text-slate-300">{card.handle}</p>
+                            <p className="text-sm text-emerald-100/75">{card.handle}</p>
                           </div>
                         </div>
                       </a>
@@ -270,22 +271,22 @@ function App() {
 
           <section className="mt-10 enter-up delay-5">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-              <h2 className="title-font text-3xl text-white sm:text-4xl">
+              <h2 className="title-font neon-text text-3xl text-emerald-200 sm:text-4xl">
                 Son Video
               </h2>
               <a
                 href={siteConfig.links.youtube}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 transition hover:border-white/40 hover:bg-white/10"
+                className="rounded-full border border-emerald-300/40 bg-emerald-300/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100 transition hover:border-emerald-300/70 hover:bg-emerald-300/12"
               >
-                Visit Channel
+                Kanala Git
               </a>
             </div>
 
             {isLoading && (
-              <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-6 text-slate-300">
-                Loading latest video...
+              <div className="rounded-2xl border border-emerald-300/20 bg-black/45 p-6 text-emerald-100/80">
+                Son video yukleniyor...
               </div>
             )}
 
@@ -296,7 +297,7 @@ function App() {
             )}
 
             {latestVideo && (
-              <article className="overflow-hidden rounded-2xl border border-white/15 bg-slate-900/70">
+              <article className="overflow-hidden rounded-2xl border border-emerald-300/25 bg-black/60">
                 <div className="aspect-video">
                   <iframe
                     className="h-full w-full"
@@ -309,10 +310,10 @@ function App() {
                   />
                 </div>
                 <div className="space-y-2 p-4 sm:p-5">
-                  <h3 className="line-clamp-2 text-lg font-semibold text-white">
+                  <h3 className="line-clamp-2 text-lg font-semibold text-emerald-50">
                     {latestVideo.title}
                   </h3>
-                  <p className="text-sm text-slate-300">
+                  <p className="text-sm text-emerald-100/75">
                     {new Date(latestVideo.published).toLocaleDateString(undefined, {
                       year: "numeric",
                       month: "long",
@@ -323,7 +324,7 @@ function App() {
                     href={latestVideo.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex text-sm font-medium text-cyan-200 transition hover:text-cyan-100"
+                    className="inline-flex text-sm font-medium text-emerald-300 transition hover:text-lime-200"
                   >
                     Watch on YouTube
                   </a>
