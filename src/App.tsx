@@ -127,11 +127,13 @@ async function fetchLatestVideo(channelId: string): Promise<LatestVideo> {
     throw new Error("Set your YouTube channel id in src/siteConfig.ts.");
   }
 
+  // rss2json caches by source URL; changing this query forces a fresh upstream read.
   const feedUrl = encodeURIComponent(
-    `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`,
+    `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}&_=${Date.now()}`,
   );
   const response = await fetch(
     `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`,
+    { cache: "no-store" },
   );
 
   if (!response.ok) {
