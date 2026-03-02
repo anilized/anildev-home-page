@@ -196,32 +196,32 @@ function App() {
   }, []);
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden px-4 py-10 sm:px-8">
-      <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-emerald-400/25 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 rounded-full bg-lime-400/20 blur-3xl" />
-      <div className="pointer-events-none absolute inset-0 opacity-20 [background:repeating-linear-gradient(0deg,rgba(74,222,128,0.12)_0px,rgba(74,222,128,0.12)_1px,transparent_1px,transparent_3px)]" />
-      <div className="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-5xl items-center justify-center">
-        <section className="glass-panel w-full rounded-3xl p-6 sm:p-10">
-          <header className="enter-up">
-            <p className="text-xs uppercase tracking-[0.4em] text-emerald-300/85">
+    <main className="relative isolate min-h-[100dvh] overflow-x-clip px-3 py-5 sm:px-8 sm:py-10 [padding-top:calc(1rem+env(safe-area-inset-top))] [padding-bottom:calc(1rem+env(safe-area-inset-bottom))]">
+      <div className="pointer-events-none absolute -left-24 top-0 h-60 w-60 rounded-full bg-emerald-400/25 blur-3xl sm:h-72 sm:w-72" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-lime-400/20 blur-3xl sm:h-80 sm:w-80" />
+      <div className="pointer-events-none absolute inset-0 opacity-15 sm:opacity-20 [background:repeating-linear-gradient(0deg,rgba(74,222,128,0.12)_0px,rgba(74,222,128,0.12)_1px,transparent_1px,transparent_3px)]" />
+      <div className="mx-auto flex min-h-[calc(100dvh-2.5rem)] w-full max-w-5xl items-start justify-center sm:min-h-[calc(100dvh-5rem)] sm:items-center">
+        <section className="glass-panel w-full rounded-2xl p-4 sm:rounded-3xl sm:p-10">
+          <header className="enter-up text-center sm:text-left">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-emerald-300/85 sm:text-xs sm:tracking-[0.4em]">
               Sosyal Medya Linkleri
             </p>
-            <h1 className="title-font neon-text mt-2 text-5xl leading-none text-emerald-200 sm:text-7xl">
+            <h1 className="title-font neon-text mt-3 text-2xl leading-tight text-emerald-200 sm:mt-2 sm:text-5xl sm:leading-none lg:text-7xl">
               {siteConfig.creatorName}
             </h1>
-            <p className="mt-4 max-w-2xl text-base text-emerald-50/85 sm:text-lg">
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-emerald-50/85 sm:mt-4 sm:text-lg">
               {siteConfig.tagline}
             </p>
           </header>
 
-          <section className="mt-8 space-y-6">
+          <section className="mt-7 space-y-5 sm:mt-8 sm:space-y-6">
             {socialGroupOrder.map((group, index) => {
               const cards = socialCards.filter((card) => card.group === group);
               if (cards.length === 0) return null;
 
               return (
                 <div key={group} className={`enter-up delay-${Math.min(index + 1, 5)}`}>
-                  <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300/90">
+                  <h2 className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300/90 sm:mb-3 sm:text-xs sm:tracking-[0.24em]">
                     {group}
                   </h2>
                   <div className="flex flex-col gap-3">
@@ -231,7 +231,7 @@ function App() {
                         href={card.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="group relative overflow-hidden rounded-2xl border border-emerald-300/20 bg-emerald-200/[0.03] p-4 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-emerald-100/[0.06] hover:shadow-[0_14px_30px_rgba(5,46,22,0.65)]"
+                        className="group relative overflow-hidden rounded-xl border border-emerald-300/20 bg-emerald-200/[0.03] p-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-emerald-100/[0.06] hover:shadow-[0_14px_30px_rgba(5,46,22,0.65)] sm:rounded-2xl sm:p-4"
                       >
                         <div
                           className={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-0 transition duration-300 group-hover:opacity-100 ${card.gradientClass}`}
@@ -247,9 +247,13 @@ function App() {
                               loading="lazy"
                             />
                           </span>
-                          <div>
-                            <p className="text-base font-semibold text-white">{card.label}</p>
-                            <p className="text-sm text-emerald-100/75">{card.handle}</p>
+                          <div className="min-w-0">
+                            <p className="text-[15px] font-semibold text-white sm:text-base">
+                              {card.label}
+                            </p>
+                            <p className="truncate text-sm text-emerald-100/75">
+                              {card.handle}
+                            </p>
                           </div>
                         </div>
                       </a>
@@ -260,35 +264,35 @@ function App() {
             })}
           </section>
 
-          <section className="mt-10 enter-up delay-5">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-              <h2 className="title-font neon-text text-3xl text-emerald-200 sm:text-4xl">
+          <section className="mt-8 enter-up delay-5 sm:mt-10">
+            <div className="mb-3 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h2 className="title-font neon-text text-xl leading-tight text-emerald-200 sm:text-4xl">
                 Son Video
               </h2>
               <a
                 href={siteConfig.links.youtube}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-emerald-300/40 bg-emerald-300/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100 transition hover:border-emerald-300/70 hover:bg-emerald-300/12"
+                className="inline-flex w-full items-center justify-center rounded-full border border-emerald-300/40 bg-emerald-300/5 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100 transition hover:border-emerald-300/70 hover:bg-emerald-300/12 sm:w-auto sm:py-2 sm:tracking-[0.2em]"
               >
                 Kanala Git
               </a>
             </div>
 
             {isLoading && (
-              <div className="rounded-2xl border border-emerald-300/20 bg-black/45 p-6 text-emerald-100/80">
+              <div className="rounded-xl border border-emerald-300/20 bg-black/45 p-4 text-sm text-emerald-100/80 sm:rounded-2xl sm:p-6">
                 Son video yukleniyor...
               </div>
             )}
 
             {error && (
-              <div className="rounded-2xl border border-rose-300/30 bg-rose-950/30 p-6 text-rose-100">
+              <div className="rounded-xl border border-rose-300/30 bg-rose-950/30 p-4 text-sm text-rose-100 sm:rounded-2xl sm:p-6">
                 {error}
               </div>
             )}
 
             {latestVideo && (
-              <article className="overflow-hidden rounded-2xl border border-emerald-300/25 bg-black/60">
+              <article className="overflow-hidden rounded-xl border border-emerald-300/25 bg-black/60 sm:rounded-2xl">
                 <div className="aspect-video">
                   <iframe
                     className="h-full w-full"
@@ -301,7 +305,7 @@ function App() {
                   />
                 </div>
                 <div className="space-y-2 p-4 sm:p-5">
-                  <h3 className="line-clamp-2 text-lg font-semibold text-emerald-50">
+                  <h3 className="line-clamp-2 text-base font-semibold text-emerald-50 sm:text-lg">
                     {latestVideo.title}
                   </h3>
                   <p className="text-sm text-emerald-100/75">

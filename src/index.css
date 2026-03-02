@@ -21,6 +21,7 @@ body,
 body {
   position: relative;
   margin: 0;
+  overflow-x: hidden;
   color: var(--fg);
   font-family: "Oxanium", sans-serif;
   background:
@@ -90,5 +91,17 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .title-font {
+    letter-spacing: 0.035em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-up {
+    animation: none;
   }
 }
