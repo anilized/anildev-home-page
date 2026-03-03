@@ -9,6 +9,8 @@ COPY . .
 
 # Build with /links base path by default so assets resolve under anildev.io/links
 ARG APP_BASE_PATH=/links/
+ARG VITE_GA_MEASUREMENT_ID=
+ENV VITE_GA_MEASUREMENT_ID=${VITE_GA_MEASUREMENT_ID}
 RUN npx tsc && npx vite build --base=${APP_BASE_PATH}
 
 FROM nginx:1.29-alpine AS runtime
