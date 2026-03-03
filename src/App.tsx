@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { trackEvent } from "./analytics";
 import { siteConfig, type SocialKey } from "./siteConfig";
 
 type FeedItem = {
@@ -179,10 +180,16 @@ function App() {
         if (active) {
           setLatestVideo(video);
           setError(null);
+          trackEvent("latest_video_loaded", {
+            video_id: video.id,
+          });
         }
       } catch (err) {
         if (active) {
           setError(err instanceof Error ? err.message : "Unknown error");
+          trackEvent("latest_video_load_failed", {
+            source: "youtube_feed",
+          });
         }
       } finally {
         if (active) {
@@ -233,6 +240,13 @@ function App() {
                         href={card.href}
                         target="_blank"
                         rel="noreferrer"
+                        onClick={() => {
+                          trackEvent("outbound_click", {
+                            link_type: "social_card",
+                            link_label: card.key,
+                            destination: card.href,
+                          });
+                        }}
                         className="group relative overflow-hidden rounded-xl border border-emerald-300/20 bg-emerald-200/[0.03] p-3.5 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-emerald-100/[0.06] hover:shadow-[0_14px_30px_rgba(5,46,22,0.65)] sm:rounded-2xl sm:p-4"
                       >
                         <div
@@ -275,6 +289,13 @@ function App() {
                 href={siteConfig.links.youtube}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => {
+                  trackEvent("outbound_click", {
+                    link_type: "youtube_channel",
+                    link_label: "kanala_git",
+                    destination: siteConfig.links.youtube,
+                  });
+                }}
                 className="inline-flex w-full items-center justify-center rounded-full border border-emerald-300/40 bg-emerald-300/5 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100 transition hover:border-emerald-300/70 hover:bg-emerald-300/12 sm:w-auto sm:py-2 sm:tracking-[0.2em]"
               >
                 Kanala Git
@@ -321,6 +342,13 @@ function App() {
                     href={latestVideo.link}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => {
+                      trackEvent("outbound_click", {
+                        link_type: "latest_video",
+                        link_label: latestVideo.id,
+                        destination: latestVideo.link,
+                      });
+                    }}
                     className="inline-flex text-sm font-medium text-emerald-300 transition hover:text-lime-200"
                   >
                     Watch on YouTube

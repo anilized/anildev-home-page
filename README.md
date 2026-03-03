@@ -33,6 +33,32 @@ Build almak icin:
 npm run build
 ```
 
+## Google Analytics 4
+
+Bu proje GA4 entegrasyonunu `VITE_GA_MEASUREMENT_ID` ortam degiskeni ile calistirir.
+
+1. Kendi GA4 property olusturup Measurement ID alin (`G-XXXXXXXXXX`).
+2. Proje kokunde `.env.local` dosyasi olusturun:
+
+```bash
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+3. Uygulamayi tekrar calistirin (`npm run dev`) veya yeniden build alin.
+4. Docker/Compose ile build aliyorsaniz, ayni degiskeni shell ortaminda tanimlayin:
+
+```bash
+set VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+docker compose up -d --build
+```
+
+Gonderilen temel eventler:
+
+- `page_view`
+- `outbound_click` (sosyal kartlar, `Kanala Git`, son video linki)
+- `latest_video_loaded`
+- `latest_video_load_failed`
+
 ## Docker
 
 Uygulama Docker imaji icinde Nginx ile `anildev.io/links` altinda servis edilmek uzere hazirlandi.
