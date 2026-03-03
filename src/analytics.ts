@@ -26,8 +26,9 @@ export function initAnalytics(): void {
 
   isInitialized = true;
   window.dataLayer = window.dataLayer || [];
-  window.gtag = (...args: unknown[]) => {
-    window.dataLayer.push(args);
+  // Keep the bootstrap exactly aligned with Google's snippet semantics.
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
   };
 
   const script = document.createElement("script");
@@ -36,8 +37,7 @@ export function initAnalytics(): void {
   document.head.appendChild(script);
 
   window.gtag("js", new Date());
-  window.gtag("config", measurementId, { send_page_view: false });
-  trackPageView();
+  window.gtag("config", measurementId);
 }
 
 export function trackPageView(path?: string): void {
@@ -48,6 +48,7 @@ export function trackPageView(path?: string): void {
 
   const pagePath = path ?? `${window.location.pathname}${window.location.search}`;
   gtag("event", "page_view", {
+    send_to: measurementId,
     page_location: window.location.href,
     page_path: pagePath,
     page_title: document.title,
@@ -60,5 +61,8 @@ export function trackEvent(eventName: string, params: AnalyticsParams = {}): voi
     return;
   }
 
-  gtag("event", eventName, params);
+  gtag("event", eventName, {
+    send_to: measurementId,
+    ...params,
+  });
 }
