@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: links-page
+  namespace: links
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: anildev.io
+      http:
+        paths:
+          - path: /links
+            pathType: Prefix
+            backend:
+              service:
+                name: links-page
+                port:
+                  number: 80

@@ -1,31 +1,90 @@
-name: Deploy Homepage to VPS
+name: Build, Push, and Deploy to k3s
 
-# This tells GitHub to run this script ONLY when you push to the 'main' branch
 on:
   push:
     branches:
       - main
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository_owner }}/links-page
+
 jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_tag: ${{ steps.meta.outputs.sha_tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set image tags
+        id: meta
+        run: |
+          SHA_TAG="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          LATEST_TAG="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          echo "sha_tag=$SHA_TAG" >> $GITHUB_OUTPUT
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.meta.outputs.sha_tag }}
+            ${{ steps.meta.outputs.latest_tag }}
+          build-args: |
+            APP_BASE_PATH=/links/
+            VITE_GA_MEASUREMENT_ID=${{ secrets.GA_MEASUREMENT_ID }}
+
   deploy:
     runs-on: ubuntu-latest
-
+    needs: build-and-push
     steps:
-      - name: Deploy to Hostinger VPS
-        uses: appleboy/ssh-action@v1.0.3
+      - uses: actions/checkout@v4
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            # Navigate to the project folder
-            cd /root/dev/anildev-home-page
-            
-            # Pull the latest code from GitHub
-            git pull origin main
-            
-            # Rebuild and restart the Docker container with the new code
-            sudo docker compose up -d --build
-            
-            # Clean up old unused Docker images to save VPS disk space
-            sudo docker image prune -f
+          version: 'v1.32.0'
+
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_SECRET }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Refresh imagePullSecret
+        run: |
+          kubectl create secret docker-registry ghcr-pull-secret \
+            --namespace=links \
+            --docker-server=ghcr.io \
+            --docker-username=${{ github.actor }} \
+            --docker-password=${{ secrets.GITHUB_TOKEN }} \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Apply manifests
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          sed "s|ghcr.io/GITHUB_OWNER/links-page:IMAGE_TAG|${{ needs.build-and-push.outputs.image_tag }}|g" \
+            k8s/deployment.yaml | kubectl apply -f -
+          kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/ingress.yaml
+
+      - name: Wait for rollout
+        run: kubectl rollout status deployment/links-page -n links --timeout=120s
+
+      - name: Verify
+        run: |
+          kubectl get pods -n links
+          kubectl get ingress -n links
